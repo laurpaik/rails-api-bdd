@@ -63,7 +63,7 @@ RSpec.describe ArticlesController do
       expect(response.body).to be_empty
 
       expect { Article.find(article_id) }
-      .to raise_error(ActiveRecord::RecordNotFound)
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -72,16 +72,23 @@ RSpec.describe ArticlesController do
       { title: 'Two Stupid Tricks' }
     end
 
+    # before each of these tests runs, it'll make a patch with the article_diff
+    # and then it'll format it as a json
     before(:each) do
-      patch :update, id: article.id,
-                     params: { article: article_diff },
+      patch :update, params: { id: article.id, article: article_diff },
                      format: :json
     end
 
-    skip 'is successful' do
+    it 'is successful' do
+      expect(response.status).to eq(204)
     end
 
-    skip 'renders a JSON response' do
+    it 'returns an empty response' do
+      expect(response.body).to be_empty
+    end
+
+    it 'updates an article' do
+      expect(article[:title]).to eq(article_diff[:title])
     end
   end
 

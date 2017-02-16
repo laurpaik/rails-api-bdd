@@ -76,7 +76,7 @@ RSpec.describe 'Articles API' do
       expect(response).to be_success
       expect(response.body).to be_empty
       expect { Article.find(article_id) }
-      .to raise_error(ActiveRecord::RecordNotFound)
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -85,7 +85,12 @@ RSpec.describe 'Articles API' do
       { title: 'Two Stupid Tricks' }
     end
 
-    skip 'updates an article' do
+    it 'updates an article' do
+      patch "/articles/#{article.id}", params: { article: article_diff }
+
+      expect(response).to be_success
+
+      expect(article[:title]).to eq(article_diff[:title])
     end
   end
 
