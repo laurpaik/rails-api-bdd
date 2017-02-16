@@ -55,6 +55,7 @@ RSpec.describe 'Articles API' do
   end
 
   describe 'GET /articles/:id' do
+    # FEATURE TEST
     it 'shows one article' do
       get "/articles/#{article.id}"
 
@@ -68,7 +69,14 @@ RSpec.describe 'Articles API' do
   end
 
   describe 'DELETE /articles/:id' do
-    skip 'deletes an article' do
+    it 'deletes an article' do
+      article_id = article.id
+      delete "/articles/#{article.id}"
+
+      expect(response).to be_success
+      expect(response.body).to be_empty
+      expect { Article.find(article_id) }
+      .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 

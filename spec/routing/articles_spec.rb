@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+# unit tests
 RSpec.describe 'routes for articles' do
   it 'routes GET /articles to the articles#index action' do
     # expects a get request to /articles to route to articles#index
@@ -15,7 +16,10 @@ RSpec.describe 'routes for articles' do
                                            id: '1')
   end
 
-  skip 'routes DELETE /articles/:id to the articles#destroy action' do
+  it 'routes DELETE /articles/:id to the articles#destroy action' do
+    expect(delete('/articles/1')).to route_to(controller: 'articles',
+                                              action: 'destroy',
+                                              id: '1')
   end
 
   skip 'routes PATCH /articles/:id to the articles#update action' do

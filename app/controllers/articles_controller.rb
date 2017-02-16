@@ -14,6 +14,8 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    @article.destroy
+    head :no_content
   end
 
   def update

@@ -54,7 +54,16 @@ RSpec.describe ArticlesController do
   end
 
   describe 'DELETE destroy' do
-    skip 'is successful and returns an empty response' do
+    # before(:each) { delete :destroy, id: article.id }
+    it 'is successful and returns an empty response' do
+      article_id = article.id
+      delete :destroy, id: article.id
+
+      expect(response.status).to eq(204)
+      expect(response.body).to be_empty
+
+      expect { Article.find(article_id) }
+      .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
