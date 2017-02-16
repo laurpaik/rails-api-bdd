@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_filter :set_article, only: [:show, :update, :destroy]
+  before_action :set_article, only: [:show, :update, :destroy]
 
   def index
     @articles = Article.all

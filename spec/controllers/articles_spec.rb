@@ -44,6 +44,10 @@ RSpec.describe ArticlesController do
     it 'renders a JSON response' do
       article_wanted = JSON.parse(response.body)
       expect(article_wanted).not_to be_nil
+    end
+
+    it 'has correct content' do
+      article_wanted = JSON.parse(response.body)
       expect(article_wanted['id']).to eq(article['id'])
       expect(article_wanted['title']).to eq(article['title'])
     end
