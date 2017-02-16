@@ -2,7 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe 'routes for articles' do
-  skip 'routes GET /articles to the articles#index action' do
+  it 'routes GET /articles to the articles#index action' do
+    # expects a get request to /articles to route to articles#index
+    # route_to is a function that takes a string or a hash
+    # the hash here tells the route where to look
+    expect(get('/articles')).to route_to('articles#index')
   end
 
   skip 'routes GET /articles/:id to the articles#show action' do
