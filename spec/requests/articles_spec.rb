@@ -95,7 +95,21 @@ RSpec.describe 'Articles API' do
   end
 
   describe 'POST /articles' do
-    skip 'creates an article' do
+    it 'creates an article' do
+      def article_new
+        {
+          title: 'Never Gonna',
+          content: 'Give You Up'
+        }
+      end
+
+      post '/articles', params: { article: article_new }
+
+      expect(response).to be_success
+
+      article_response = JSON.parse(response.body)
+      expect(article_response['title']).to eq(article_new['title'])
+      expect(article_response['id']).to_not be_nil
     end
   end
 end
